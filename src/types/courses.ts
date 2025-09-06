@@ -24,6 +24,7 @@ export interface Instructor {
 
 export interface Unit {
   _id: string
+  id: string
   title: string
   description?: string
   courseId: string
@@ -34,6 +35,7 @@ export interface Unit {
 
 export interface Section {
   _id: string
+  id: string
   title: string
   description?: string
   unitId: string
@@ -59,9 +61,11 @@ export interface Lesson {
 
 export interface QuizQuestion {
   _id: string
+  id: string
   question: string
   options: string[]
   correctOptionIndex: number
+  type: string
   lessonId: string
   order: number
   createdAt?: string

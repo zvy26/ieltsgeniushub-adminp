@@ -1,7 +1,7 @@
 import type React from "react"
 import { Routes, Route } from "react-router-dom"
 import { CourseUnits } from "@/pages/CourseUnits"
-import { Dashboard } from "@/pages/Dashboard"
+import Dashboard from "@/pages/Dashboard"
 import { Courses } from "@/pages/Courses"
 import { UnitSections } from "@/pages/UnitSections"
 import { SectionLessons } from "@/pages/SectionLessons"

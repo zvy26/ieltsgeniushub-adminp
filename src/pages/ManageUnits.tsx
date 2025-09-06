@@ -30,14 +30,14 @@ import type { Unit, Section, QuizQuestion } from "@/types/courses"
 
 export const ManageUnits: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>()
-  const [expandedUnits, setExpandedUnits] = useState<Set<number>>(new Set())
-  const [expandedSections, setExpandedSections] = useState<Set<number>>(new Set())
+  const [expandedUnits, setExpandedUnits] = useState<Set<string>>(new Set())
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set())
   const [editingUnit, setEditingUnit] = useState<Unit | null>(null)
   const [editingSection, setEditingSection] = useState<Section | null>(null)
   const [editingQuestion, setEditingQuestion] = useState<QuizQuestion | null>(null)
   const [showUnitForm, setShowUnitForm] = useState(false)
-  const [showSectionForm, setShowSectionForm] = useState<number | null>(null)
-  const [showQuestionForm, setShowQuestionForm] = useState<number | null>(null)
+  const [showSectionForm, setShowSectionForm] = useState<string | null>(null)
+  const [showQuestionForm, setShowQuestionForm] = useState<string | null>(null)
 
   const { toast } = useToast()
   const { data: units = [], isLoading } = useUnitsQuery(courseId || "")
@@ -45,7 +45,7 @@ export const ManageUnits: React.FC = () => {
   const deleteSectionMutation = useDeleteSection()
   const deleteQuestionMutation = useDeleteQuestion()
 
-  const toggleUnit = (unitId: number) => {
+  const toggleUnit = (unitId: string) => {
     const newExpanded = new Set(expandedUnits)
     if (newExpanded.has(unitId)) {
       newExpanded.delete(unitId)
@@ -55,7 +55,7 @@ export const ManageUnits: React.FC = () => {
     setExpandedUnits(newExpanded)
   }
 
-  const toggleSection = (sectionId: number) => {
+  const toggleSection = (sectionId: string) => {
     const newExpanded = new Set(expandedSections)
     if (newExpanded.has(sectionId)) {
       newExpanded.delete(sectionId)
@@ -67,7 +67,7 @@ export const ManageUnits: React.FC = () => {
 
   const handleDeleteUnit = async (unit: Unit) => {
     try {
-      await deleteUnitMutation.mutateAsync(unit.id)
+      await deleteUnitMutation.mutateAsync({ id: unit.id, courseId: courseId || "" })
       toast({
         title: "Success",
         description: "Unit deleted successfully",
@@ -83,7 +83,7 @@ export const ManageUnits: React.FC = () => {
 
   const handleDeleteSection = async (section: Section) => {
     try {
-      await deleteSectionMutation.mutateAsync(section.id)
+      await deleteSectionMutation.mutateAsync({ id: section.id, unitId: section.unitId })
       toast({
         title: "Success",
         description: "Section deleted successfully",
@@ -99,7 +99,7 @@ export const ManageUnits: React.FC = () => {
 
   const handleDeleteQuestion = async (question: QuizQuestion) => {
     try {
-      await deleteQuestionMutation.mutateAsync(question.id)
+      await deleteQuestionMutation.mutateAsync({ id: question.id, lessonId: question.lessonId })
       toast({
         title: "Success",
         description: "Question deleted successfully",
@@ -190,8 +190,13 @@ export const ManageUnits: React.FC = () => {
       {/* Unit Form Modal */}
       {(showUnitForm || editingUnit) && (
         <UnitForm
+          courseId={courseId || ""}
           unit={editingUnit}
           onClose={() => {
+            setShowUnitForm(false)
+            setEditingUnit(null)
+          }}
+          onSuccess={() => {
             setShowUnitForm(false)
             setEditingUnit(null)
           }}
@@ -202,8 +207,12 @@ export const ManageUnits: React.FC = () => {
       {(showSectionForm || editingSection) && (
         <SectionForm
           section={editingSection}
-          unitId={showSectionForm || editingSection?.unitId}
+          unitId={showSectionForm || editingSection?.unitId || ""}
           onClose={() => {
+            setShowSectionForm(null)
+            setEditingSection(null)
+          }}
+          onSuccess={() => {
             setShowSectionForm(null)
             setEditingSection(null)
           }}
@@ -214,8 +223,12 @@ export const ManageUnits: React.FC = () => {
       {(showQuestionForm || editingQuestion) && (
         <QuestionForm
           question={editingQuestion}
-          lessonId={showQuestionForm || editingQuestion?.lessonId}
+          lessonId={showQuestionForm || editingQuestion?.lessonId || ""}
           onClose={() => {
+            setShowQuestionForm(null)
+            setEditingQuestion(null)
+          }}
+          onSuccess={() => {
             setShowQuestionForm(null)
             setEditingQuestion(null)
           }}
@@ -232,11 +245,11 @@ interface UnitCardProps {
   onEdit: () => void
   onDelete: () => void
   onAddSection: () => void
-  expandedSections: Set<number>
-  onToggleSection: (sectionId: number) => void
+  expandedSections: Set<string>
+  onToggleSection: (sectionId: string) => void
   onEditSection: (section: Section) => void
   onDeleteSection: (section: Section) => void
-  onAddQuestion: (sectionId: number) => void
+  onAddQuestion: (sectionId: string) => void
   onEditQuestion: (question: QuizQuestion) => void
   onDeleteQuestion: (question: QuizQuestion) => void
 }
