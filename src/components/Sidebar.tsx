@@ -13,7 +13,7 @@ const Sidebar = () => {
   ]
 
   return (
-    <div className="w-64 bg-white shadow-sm h-[calc(100vh-73px)] sticky top-[73px] border-r border-gray-200">
+    <div className="w-64 bg-white shadow-sm h-[calc(100vh-73px)] fixed top-[73px] left-0 border-r border-gray-200 z-40">
       <nav className="p-4">
         <ul className="space-y-2">
           {navigation.map((item) => {
