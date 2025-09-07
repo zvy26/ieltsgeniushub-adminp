@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../api';
 import type { Interest } from '../queries/interests';
 
-// POST /admin/interests - Create new interest
 export interface CreateInterestData {
   name: string;
   isActive?: string;
@@ -35,7 +34,6 @@ export const useCreateInterest = () => {
   });
 };
 
-// PUT /admin/interests/:id - Update interest
 export interface UpdateInterestData {
   name?: string;
   isActive?: string;
@@ -68,7 +66,6 @@ export const useUpdateInterest = () => {
   });
 };
 
-// DELETE /admin/interests/:id - Delete interest
 const deleteInterest = async (id: string): Promise<void> => {
   await api.delete(`/admin/interests/${id}`);
 };

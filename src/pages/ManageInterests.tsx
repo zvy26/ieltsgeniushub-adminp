@@ -14,16 +14,13 @@ export const ManageInterests: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterActive, setFilterActive] = useState<'all' | 'active' | 'inactive'>('all');
 
-  // Add modal state
   const [addOpen, setAddOpen] = useState(false);
   const [addData, setAddData] = useState({ name: '', icon: null as File | null });
 
-  // Edit modal state
   const [editOpen, setEditOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editData, setEditData] = useState({ name: '', isActive: true, icon: null as File | null });
 
-  // Filtered list
   const filteredInterests = useMemo(() => {
     if (!interests) return [];
     return interests.filter(interest => {
@@ -36,7 +33,6 @@ export const ManageInterests: React.FC = () => {
     });
   }, [interests, searchTerm, filterActive]);
 
-  // Stats
   const stats = useMemo(() => {
     if (!interests) return { total: 0, active: 0, inactive: 0 };
     return {
@@ -48,7 +44,6 @@ export const ManageInterests: React.FC = () => {
 
   const isBusy = createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
 
-  // Add
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!addData.name.trim() || !addData.icon) {
@@ -70,7 +65,6 @@ export const ManageInterests: React.FC = () => {
     }
   };
 
-  // Edit
   const openEdit = (id: string) => {
     const current = interests?.find(i => i._id === id);
     if (!current) return;
@@ -100,7 +94,6 @@ export const ManageInterests: React.FC = () => {
     }
   };
 
-  // Delete
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this interest?')) return;
     try {
@@ -112,7 +105,6 @@ export const ManageInterests: React.FC = () => {
     }
   };
 
-  // Icon rendering with normalization + fallback
   const renderIcon = (interest: any) => {
     if (interest.icon) {
       if (typeof interest.icon === 'string') {
@@ -140,7 +132,6 @@ export const ManageInterests: React.FC = () => {
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <div className="max-w-6xl mx-auto space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Manage Interests</h1>
@@ -155,16 +146,13 @@ export const ManageInterests: React.FC = () => {
           </button>
         </div>
 
-        {/* Stats */}
         <div className="flex items-center gap-6 text-sm">
           <span className="text-blue-600 font-medium">{stats.total} Total</span>
           <span className="text-green-600 font-medium">{stats.active} Active</span>
           <span className="text-gray-600 font-medium">{stats.inactive} Inactive</span>
         </div>
 
-        {/* Card */}
         <div className="bg-white rounded-lg border border-gray-200">
-          {/* Toolbar */}
           <div className="p-6 border-b border-gray-200">
             <div className="flex items-center justify-between gap-4">
               <h3 className="text-lg font-semibold text-gray-900">Your Interests</h3>
@@ -192,7 +180,6 @@ export const ManageInterests: React.FC = () => {
             </div>
           </div>
 
-          {/* Content */}
           <div className="p-6">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
@@ -254,7 +241,6 @@ export const ManageInterests: React.FC = () => {
           </div>
         </div>
 
-        {/* Add Modal */}
         <Dialog open={addOpen} onOpenChange={setAddOpen}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
@@ -268,7 +254,7 @@ export const ManageInterests: React.FC = () => {
                   value={addData.name}
                   onChange={(e) => setAddData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="e.g., IELTS Speaking"
+                  placeholder="nter name"
                   required
                 />
               </div>
@@ -294,7 +280,6 @@ export const ManageInterests: React.FC = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Edit Modal */}
         <Dialog open={editOpen} onOpenChange={setEditOpen}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>

@@ -20,11 +20,10 @@ export const useInterests = () => {
   return useQuery({
     queryKey: ['interests'],
     queryFn: fetchInterests,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000, 
   });
 };
 
-// GET /interests - Get active interests for users
 const fetchActiveInterests = async (): Promise<Interest[]> => {
   const response = await api.get('/interests');
   return response.data;
