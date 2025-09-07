@@ -8,7 +8,7 @@ const Sidebar = () => {
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
     { name: "Courses", href: "/courses", icon: BookOpen },
-    { name: "User stats", href: "/userstat", icon: Package },
+    { name: "Manage Interests", href: "/interests", icon: Package },
     { name: "Settings", href: "/settings", icon: Settings },
   ]
 
@@ -18,7 +18,7 @@ const Sidebar = () => {
         <ul className="space-y-2">
           {navigation.map((item) => {
             const Icon = item.icon
-            const isActive = location.pathname === item.href
+            const isActive = location.pathname === item.href || location.pathname.startsWith(item.href + "/")
             
             return (
               <li key={item.name}>

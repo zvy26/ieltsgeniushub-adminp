@@ -6,8 +6,8 @@ const Header = () => {
   const { user } = useAuth()
 
   return (
-    <header className=" top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
-      <div className="flex items-center justify-between px-6 py-4">
+    <header className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50 h-[73px]">
+      <div className="flex items-center justify-between px-6 h-full">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded bg-blue-600 flex items-center justify-center">
             <span className="text-white font-semibold text-sm">IE</span>

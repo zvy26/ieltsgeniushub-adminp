@@ -9,6 +9,7 @@ import { CourseUnits } from "@/pages/CourseUnits"
 import { UnitSections } from "@/pages/UnitSections"
 import { SectionLessons } from "@/pages/SectionLessons"
 import { ManageUnits } from "@/pages/ManageUnits"
+import { ManageInterests } from "@/pages/ManageInterests"
 import type { ReactNode } from "react"
 
 interface ProtectedRouteProps {
@@ -31,6 +32,10 @@ const protectedRoutes = [
   {
     path: "/courses",
     element: <Courses />,
+  },
+  {
+    path: "/interests",
+    element: <ManageInterests />,
   },
   {
     path: "/manage-units",
