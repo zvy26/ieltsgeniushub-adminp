@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom"
 import { cn } from "../lib/utils"
-import { BarChart3, BookOpen, Package, Settings } from "lucide-react"
+import { BarChart3, BookOpen, Package, Settings, Heart } from "lucide-react"
 
 const Sidebar = () => {
   const location = useLocation()
@@ -8,6 +8,7 @@ const Sidebar = () => {
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
     { name: "Courses", href: "/courses", icon: BookOpen },
+    { name: "Interests", href: "/interests", icon: Heart },
     { name: "User stats", href: "/userstat", icon: Package },
     { name: "Settings", href: "/settings", icon: Settings },
   ]
