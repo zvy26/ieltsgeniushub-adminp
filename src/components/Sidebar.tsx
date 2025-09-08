@@ -7,7 +7,7 @@ const Sidebar = () => {
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
-    { name: "Courses", href: "/courses", icon: BookOpen },
+    { name: "Manage Courses", href: "/courses", icon: BookOpen },
     { name: "Manage Interests", href: "/interests", icon: Package },
     { name: "Settings", href: "/settings", icon: Settings },
   ]

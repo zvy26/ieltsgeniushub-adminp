@@ -26,8 +26,8 @@ const Dashboard = () => {
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
           <p className="text-gray-600">Welcome back, {user?.name}</p>
-        </div>
-        <Button onClick={logout} variant="outline">
+        </div >
+        <Button className="text-red-600" onClick={logout} variant="outline">
           Logout
         </Button>
       </div>
